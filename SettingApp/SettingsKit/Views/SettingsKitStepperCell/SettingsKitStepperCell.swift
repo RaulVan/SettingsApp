@@ -10,9 +10,9 @@ import UIKit
 class SettingsKitStepperCell: UITableViewCell, SettingsKitCell {
     private var setting: SettingsKitStepper!
     
-    private var titleLabel: UILabel!
-    private var detailLabel: UILabel!
-    private var stepperView: UIStepper!
+    private var titleLabel: UILabel = UILabel()
+    private var detailLabel: UILabel = UILabel()
+    private var stepperView: UIStepper = UIStepper()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -37,7 +37,7 @@ class SettingsKitStepperCell: UITableViewCell, SettingsKitCell {
     }
     
     private func setupTitleLabel() {
-        titleLabel = UILabel()
+        
         titleLabel.text = setting.title
         titleLabel.font = .systemFont(ofSize: 17)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +51,7 @@ class SettingsKitStepperCell: UITableViewCell, SettingsKitCell {
     }
     
     private func setupStepperView() {
-        stepperView = UIStepper()
+        
         stepperView.value = doubleValue()
         stepperView.minimumValue = setting.min
         stepperView.maximumValue = setting.max
@@ -88,7 +88,7 @@ class SettingsKitStepperCell: UITableViewCell, SettingsKitCell {
     }
     
     private func setupDetailLabel() {
-        detailLabel = UILabel()
+        
         detailLabel.textColor = .secondaryLabel
         detailLabel.font = .systemFont(ofSize: 17)
         detailLabel.translatesAutoresizingMaskIntoConstraints = false

@@ -10,8 +10,8 @@ import UIKit
 class SettingsKitLabelCell: UITableViewCell, SettingsKitCell {
     private var setting: SettingsKitLabel!
     
-    private var titleLabel: UILabel!
-    private var detailLabel: UILabel!
+    private var titleLabel: UILabel = UILabel()
+    private var detailLabel: UILabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -45,7 +45,7 @@ class SettingsKitLabelCell: UITableViewCell, SettingsKitCell {
     }
     
     private func setupTitleLabel() {
-        titleLabel = UILabel()
+        
         titleLabel.text = setting.title
         titleLabel.font = .systemFont(ofSize: 17)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +59,7 @@ class SettingsKitLabelCell: UITableViewCell, SettingsKitCell {
     }
     
     private func setupDetailLabel() {
-        detailLabel = UILabel()
+        
         detailLabel.textColor = .secondaryLabel
         detailLabel.font = .systemFont(ofSize: 17)
         detailLabel.translatesAutoresizingMaskIntoConstraints = false

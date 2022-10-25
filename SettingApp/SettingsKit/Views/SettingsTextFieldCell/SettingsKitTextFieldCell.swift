@@ -10,8 +10,8 @@ import UIKit
 class SettingsKitTextFieldCell: UITableViewCell, UITextFieldDelegate, SettingsKitCell {
     private var setting: SettingsKitTextField!
     
-    private var titleLabel: UILabel!
-    private var textView: UITextField!
+    private var titleLabel: UILabel = UILabel()
+    private var textView: UITextField = UITextField()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -35,7 +35,7 @@ class SettingsKitTextFieldCell: UITableViewCell, UITextFieldDelegate, SettingsKi
     }
     
     private func setupTitleLabel() {
-        titleLabel = UILabel()
+        
         titleLabel.text = setting.title
         titleLabel.font = .systemFont(ofSize: 17)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +49,7 @@ class SettingsKitTextFieldCell: UITableViewCell, UITextFieldDelegate, SettingsKi
     }
     
     private func setupTextField() {
-        textView = UITextField()
+        
         textView.delegate = self
         textView.text = stringValue()
         textView.returnKeyType = .done

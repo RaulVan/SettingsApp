@@ -10,9 +10,10 @@ import UIKit
 class SettingsKitToggleCell: UITableViewCell, SettingsKitCell {
     private var setting: SettingsKitToggle!
 
-    private var iconView = UIView()
-    private var titleLabel: UILabel!
-    private var switchView: UISwitch!
+    private var iconView: UIView = UIView()
+    private var iconImageView = UIImageView()
+    private var titleLabel: UILabel = UILabel()
+    private var switchView: UISwitch = UISwitch()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,30 +39,51 @@ class SettingsKitToggleCell: UITableViewCell, SettingsKitCell {
     
     private func setupIconView() {
         if let view = setting.icon?.view() {
-            iconView = view
             
-            addSubview(iconView)
-            
-            NSLayoutConstraint.activate([
-                iconView.centerYAnchor.constraint(equalTo: centerYAnchor),
-                iconView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
-            ])
+//            if iconView == nil {
+//                iconView = view
+//                addSubview(iconView!)
+//
+//                NSLayoutConstraint.activate([
+//                    iconView!.centerYAnchor.constraint(equalTo: centerYAnchor),
+//                    iconView!.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
+//                ])
+                
+                iconView.clipsToBounds = true
+                iconView.layer.cornerRadius = 6.5
+                iconView.backgroundColor = .clear
+                iconView.layer.cornerCurve = .continuous
+                iconView.translatesAutoresizingMaskIntoConstraints = false
+                addSubview(iconView)
+                
+                iconImageView.tintColor = .white
+                iconImageView.image = setting.icon?.symbol //symbol?.withConfiguration(config)
+                iconImageView.translatesAutoresizingMaskIntoConstraints = false
+                iconImageView.contentMode = .scaleAspectFit
+                iconView.addSubview(iconImageView)
+                
+                NSLayoutConstraint.activate([
+                    iconView.centerYAnchor.constraint(equalTo: centerYAnchor),
+                    iconView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+                    iconView.widthAnchor.constraint(equalToConstant: 29),
+                    iconView.heightAnchor.constraint(equalToConstant: 29),
+                    iconImageView.centerXAnchor.constraint(equalTo: iconView.centerXAnchor),
+                    iconImageView.centerYAnchor.constraint(equalTo: iconView.centerYAnchor),
+                ])
+
+//            }
         }
         
     }
     
     private func setupTitleLabel() {
-        titleLabel = UILabel()
+
         titleLabel.text = setting.title
         titleLabel.font = .systemFont(ofSize: 17)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(titleLabel)
         
-//        NSLayoutConstraint.activate([
-//            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-//            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
-//        ])
         var iconViewLeadingAnchor: NSLayoutXAxisAnchor {
             return setting.icon != nil ? iconView.trailingAnchor : leadingAnchor
         }
@@ -77,7 +99,7 @@ class SettingsKitToggleCell: UITableViewCell, SettingsKitCell {
     }
     
     private func setupSwitchView() {
-        switchView = UISwitch()
+        
         switchView.isOn = boolValue()
         switchView.translatesAutoresizingMaskIntoConstraints = false
         switchView.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)

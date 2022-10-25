@@ -10,9 +10,10 @@ import UIKit
 class SettingsKitAccountCell: UITableViewCell, SettingsKitCell {
     private var setting: SettingsKitAccount!
     
-    private var iconView = UIView()
+    private var iconView: UIView = UIView()
+    private var iconImageView = UIImageView()
     private var titleLabel = UILabel()
-    private var detailLabel: UILabel!
+    private var detailLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
@@ -33,15 +34,39 @@ class SettingsKitAccountCell: UITableViewCell, SettingsKitCell {
     
     private func setupIconView() {
         if let view = setting.icon?.view(58,29) {
-            iconView = view
-            
+//            if iconView == nil {
+//                iconView = view
+//                addSubview(iconView!)
+//                NSLayoutConstraint.activate([
+//                    iconView!.centerYAnchor.constraint(equalTo: centerYAnchor),
+//                    iconView!.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
+//                ])
+//            }
+//
+            iconView.clipsToBounds = true
+            iconView.layer.cornerRadius = 6.5
+            iconView.backgroundColor = .clear
+            iconView.layer.cornerCurve = .continuous
+            iconView.translatesAutoresizingMaskIntoConstraints = false
             addSubview(iconView)
+            
+            iconImageView.tintColor = .white
+            iconImageView.image = setting.icon?.symbol //symbol?.withConfiguration(config)
+            iconImageView.translatesAutoresizingMaskIntoConstraints = false
+            iconImageView.contentMode = .scaleAspectFit
+            iconView.addSubview(iconImageView)
             
             NSLayoutConstraint.activate([
                 iconView.centerYAnchor.constraint(equalTo: centerYAnchor),
-                iconView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
+                iconView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+                iconView.widthAnchor.constraint(equalToConstant: 58),
+                iconView.heightAnchor.constraint(equalToConstant: 58),
+                iconImageView.centerXAnchor.constraint(equalTo: iconView.centerXAnchor),
+                iconImageView.centerYAnchor.constraint(equalTo: iconView.centerYAnchor),
             ])
         }
+        
+        
     }
     
     private func setupTitleLabel() {
@@ -67,7 +92,6 @@ class SettingsKitAccountCell: UITableViewCell, SettingsKitCell {
     }
     
     private func setupDetailLabel() {
-        detailLabel = UILabel()
         detailLabel.textColor = .secondaryLabel
         detailLabel.font = .systemFont(ofSize: 13)
         detailLabel.translatesAutoresizingMaskIntoConstraints = false
